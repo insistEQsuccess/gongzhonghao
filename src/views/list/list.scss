@@ -1,0 +1,58 @@
+.list-box{
+  height: 100%;
+  padding: 0 0.15rem;
+  overflow: auto;
+  .list-inner{
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .list-item{
+    padding: 0.2rem;
+    margin-bottom: 0.2rem;
+    background: #f5f5f5;
+    border-radius: 0.1rem;
+    .item-box{
+      overflow: hidden;
+      .img-box{
+        width: 2.3rem;
+        height: 2.6rem;
+        margin-right: 0.2rem;
+        overflow: hidden;
+        border-radius: 0.1rem;
+        float: left;
+        img{
+          width: 2.3rem;
+          height: 2.6rem;
+        }
+      }
+      .info-box{
+        overflow: auto;
+        .info-top, .info-bottom{
+          padding: 0.1rem 0;
+        }
+        .info-divider{
+          padding: 0.05rem 0;
+          border-radius: 0.1rem;
+          background: #fff;
+        }
+        .info-msg{
+          padding: 0.1rem 0;
+          color: #555;
+          font-size: 0.3rem;
+        }
+        .info-main{
+          padding: 0.1rem 0;
+          color: #333;
+          font-size: 0.4rem;
+        }
+      }
+    }
+    .item-msg{
+      padding: 0.2rem 0 0;
+      font-size: 0.3rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

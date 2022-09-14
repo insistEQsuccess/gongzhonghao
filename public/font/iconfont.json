@@ -1,0 +1,30 @@
+{
+  "id": "3643518",
+  "name": "xiangqin",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5135",
+      "name": "数码手机",
+      "font_class": "shumashouji",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "9057823",
+      "name": "男性",
+      "font_class": "nanxing",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "13644412",
+      "name": "女性",
+      "font_class": "nvxing",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    }
+  ]
+}
