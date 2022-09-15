@@ -4,7 +4,7 @@ import {
   Space,
   Mask,
   Calendar,
-  TreeSelect
+  // TreeSelect
 } from 'antd-mobile'
 import { getCitys } from '@/api/url'
 import './info.scss'

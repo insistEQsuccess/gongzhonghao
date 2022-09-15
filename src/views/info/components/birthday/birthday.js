@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Mask } from 'antd-mobile'
 
 export default function Birthday () {
+  const [showMask, setShowMask] = useState(false)
+  
   return <div className='birthday-box'>
     <Mask visible={showMask}>
       <div className="mask-inner">
@@ -13,7 +16,6 @@ export default function Birthday () {
             let date = `${y}-${m}-${d}`
             console.log(date)
             // setBirthday(date)
-            setForm('birthday', date)
             setShowMask(false)
           }}
         />

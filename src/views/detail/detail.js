@@ -4,6 +4,8 @@ const female = require('../../assets/female.png');
 const heart = require('../../assets/heart.png');
 const sweet = require('../../assets/sweet.gif');
 
+console.log(process.env.REACT_APP_BASE_API_URL)
+
 function HomeComp () {
   return <div className='detail-box'>
     <ul className="fav-box">

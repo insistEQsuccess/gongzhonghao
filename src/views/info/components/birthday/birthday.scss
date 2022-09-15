@@ -1,0 +1,11 @@
+.birthday-box{
+  height: 100%;
+  .mask-inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    // background-color: rgba(0,0,0,0.8);
+    background-color: rgba(255,255,255,0.8);
+  }
+}
