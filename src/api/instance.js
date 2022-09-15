@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 const baseURL = process.env.REACT_APP_BASE_API_URL
 
 const instance = axios.create({
@@ -10,10 +9,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   // 在发送请求之前做什么
   config => {
-    if (config.method === 'post') {
-      // post请求需要序列化
-      config.data = qs.stringify(config.data)
-    }
+    config.headers.sign = 'ViS3Ox0QAksV+anIVBx0KSmorRkPUaUvvOCOF50YtQOIcFoyWV6VfwGbqPwABRRo5lvW2cjLpCVhJu9H/JALqcYoR52SpZQk8zGyKyx+5uOr/d9qhnNJj3+/uydDifPxD8YX6k3SzIiECr2QCWmOLBavnPDzqOmTuYAKe4Vn6eps+FUH0vgCiPLUQr6uzBGY26+WV4PW4sBtlJxpDit4YzCgYIJgXidrTnQ6VxiMg1U='
     return config
   },
   // 对请求错误做点什么
@@ -23,8 +19,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   // 对响应数据做点什么
   response => {
-    response.status === 200 ? Promise.resolve(response) : Promise.reject(response)
-
+    return Promise.resolve(response.data)
   },
   // 对响应错误做点什么
   error => {
@@ -60,4 +55,13 @@ const errorHandle=(status,info)=>{
   }
 }
 
-export const post = () => instance.post()
+
+export const post = async (request, config) => {
+  return instance.post(request.url, request.data, { baseURL: request.baseURL || baseURL, ...config })
+}
+
+export const get = async (request, config) => {
+  return instance.get(request.url, { baseURL: request.baseURL || baseURL, params: request.data, ...config })
+}
+
+export default instance

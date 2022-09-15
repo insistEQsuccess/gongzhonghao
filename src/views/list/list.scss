@@ -1,6 +1,6 @@
 .list-box{
   height: 100%;
-  padding: 0 0.15rem;
+  padding: 0.2rem 0.15rem;
   overflow: auto;
   .list-inner{
     overflow-x: hidden;
@@ -28,7 +28,7 @@
       .info-box{
         overflow: auto;
         .info-top, .info-bottom{
-          padding: 0.1rem 0;
+          padding: 0.05rem 0;
         }
         .info-divider{
           padding: 0.05rem 0;
