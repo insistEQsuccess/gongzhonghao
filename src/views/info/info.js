@@ -1,26 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Radio,
   Space,
   Mask,
   Calendar,
-  // TreeSelect
+  TreeSelect,
 } from 'antd-mobile'
 import { getCitys } from '@/api/url'
+import HeightOptions from './height'
 import './info.scss'
 
 export default function Info () {
-  useEffect(() => {
-    const getData = async () => {
-      let ret = await getCitys({})
-      console.log(ret)
-    }
-    getData()
-  })
-  const [showMask, setShowMask] = useState(false)
+  const [showBirthday, setBirthday] = useState(false)
+  const [showAddr, setAddrShow] = useState(false)
+  const [showHeight, setHeightShow] = useState(false)
+  const [addrOptions, setOptionsAddr] = useState([])
   const [formInline, setFormInline] = useState({
-    birthday: ''
+    birthday: '',
+    addressName: '',
+    addressCode: [],
+    height: ''
   })
+  const getAddrList = async () => {
+    if (addrOptions.length) {
+      setAddrShow(true)
+      return;
+    }
+    let ret = await getCitys({})
+    const data = ret.data.provList
+    data.forEach(it => {
+      it.areaList = it.cityList
+      delete it.cityList
+    })
+    console.log(data)
+    setOptionsAddr(data)
+    setAddrShow(true)
+  }
   function setForm (key, value) {
     setFormInline((prev) => {
       return {
@@ -47,14 +62,18 @@ export default function Info () {
         <input readOnly
           className='normal-text'
           value={formInline.birthday}
-          onClick={() => setShowMask(true)}
+          onClick={() => setBirthday(true)}
         />
       </div>
     </div>
     <div className="info-item">
       <div className="item-top">3、请选择您的所在地</div>
       <div className="item-bottom">
-        <input readOnly className='normal-text' value={formInline.birthday} onClick={() => setShowMask(true)} />
+        <input readOnly
+          className='normal-text'
+          value={formInline.addressName}
+          onClick={() => getAddrList()}
+        />
       </div>
     </div>
     <div className="info-item">
@@ -74,24 +93,69 @@ export default function Info () {
     <div className="info-item">
       <div className="item-top">3、请选择您的身高</div>
       <div className="item-bottom">
-        <input readOnly className='normal-text' value={formInline.birthday} onClick={() => setShowMask(true)} />
+        <input
+          readOnly
+          className='normal-text'
+          value={formInline.height}
+          onClick={() => setHeightShow(true)}
+        />
       </div>
     </div>
-    <Mask visible={showMask}>
+    <Mask visible={showBirthday}>
       <div className="mask-inner">
-        <Calendar
-          selectionMode='single'
-          onChange={val => {
-            let y = val.getFullYear()
-            let m = ((val.getMonth() + 1) + '').padStart(2, '0')
-            let d = (val.getDate() + '').padStart(2, '0')
-            let date = `${y}-${m}-${d}`
-            console.log(date)
-            // setBirthday(date)
-            setForm('birthday', date)
-            setShowMask(false)
+        <div className="birth-box">
+          <Calendar
+            selectionMode='single'
+            onChange={val => {
+              let y = val.getFullYear()
+              let m = ((val.getMonth() + 1) + '').padStart(2, '0')
+              let d = (val.getDate() + '').padStart(2, '0')
+              let date = `${y}-${m}-${d}`
+              console.log(date)
+              setForm('birthday', date)
+              setBirthday(false)
+            }}
+          />
+        </div>
+      </div>
+    </Mask>
+    <Mask visible={showAddr}>
+      <div className="mask-inner">
+        <TreeSelect
+          fieldNames={{label: 'name', value: 'code', children: 'areaList'}}
+          options={addrOptions}
+          onChange={(value, nodes) => {
+            console.log(value, nodes)
+            if (value.length === 3) {
+              setForm('addressName', nodes.options.map(it => it.name).join('-'))
+              setForm('addressCode', value)
+              setAddrShow(false)
+            }
           }}
         />
+      </div>
+    </Mask>
+    <Mask visible={showHeight}>
+      <div className="mask-inner">
+        <div className="hei-box">
+          <div className="hei-title">请选择您的身高</div>
+          <ul>
+            {
+              HeightOptions.map(it => <li
+                  key={it.value}
+                  data-value={it.value}
+                  onClick={(e) =>{
+                    console.log(e.target.dataset.value)
+                    setForm('height', e.target.dataset.value)
+                    setHeightShow(false)
+                  }}
+                >
+                  {it.label}
+                </li>
+              )
+            }
+          </ul>
+        </div>
       </div>
     </Mask>
   </div>
